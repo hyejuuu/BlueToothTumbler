@@ -13,6 +13,14 @@
 		D1BDAEB222B785A000A8F81A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1BDAEB022B785A000A8F81A /* Main.storyboard */; };
 		D1BDAEB422B785A100A8F81A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1BDAEB322B785A100A8F81A /* Assets.xcassets */; };
 		D1BDAEB722B785A100A8F81A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1BDAEB522B785A100A8F81A /* LaunchScreen.storyboard */; };
+		D1BDAEC222B7985500A8F81A /* ConnectedBlueToothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAEC122B7985500A8F81A /* ConnectedBlueToothViewController.swift */; };
+		D1BDAECA22B7A51D00A8F81A /* AJDotLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BDAEC722B7A51D00A8F81A /* AJDotLoadingView.xib */; };
+		D1BDAECB22B7A51D00A8F81A /* UIDotLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAEC822B7A51D00A8F81A /* UIDotLoadingIndicator.swift */; };
+		D1BDAECC22B7A51D00A8F81A /* AJDotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAEC922B7A51D00A8F81A /* AJDotLoadingView.swift */; };
+		D1BDAECE22B7A5C000A8F81A /* UIViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAECD22B7A5C000A8F81A /* UIViewHelper.swift */; };
+		D1BDAED022B7A9B400A8F81A /* BlueToothSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAECF22B7A9B400A8F81A /* BlueToothSearchingViewController.swift */; };
+		D1BDAED222B7B28300A8F81A /* BlueToothPeripheralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BDAED122B7B28300A8F81A /* BlueToothPeripheralTableViewCell.swift */; };
+		D1BDAED422B7B42200A8F81A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1BDAED322B7B42200A8F81A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +33,14 @@
 		D1BDAEB322B785A100A8F81A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1BDAEB622B785A100A8F81A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1BDAEB822B785A100A8F81A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1BDAEC122B7985500A8F81A /* ConnectedBlueToothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedBlueToothViewController.swift; sourceTree = "<group>"; };
+		D1BDAEC722B7A51D00A8F81A /* AJDotLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJDotLoadingView.xib; sourceTree = "<group>"; };
+		D1BDAEC822B7A51D00A8F81A /* UIDotLoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDotLoadingIndicator.swift; sourceTree = "<group>"; };
+		D1BDAEC922B7A51D00A8F81A /* AJDotLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJDotLoadingView.swift; sourceTree = "<group>"; };
+		D1BDAECD22B7A5C000A8F81A /* UIViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewHelper.swift; sourceTree = "<group>"; };
+		D1BDAECF22B7A9B400A8F81A /* BlueToothSearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothSearchingViewController.swift; sourceTree = "<group>"; };
+		D1BDAED122B7B28300A8F81A /* BlueToothPeripheralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothPeripheralTableViewCell.swift; sourceTree = "<group>"; };
+		D1BDAED322B7B42200A8F81A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DBD8C96339FFEA3C79AB4C48 /* Pods-BlueToothTumbler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueToothTumbler.debug.xcconfig"; path = "Target Support Files/Pods-BlueToothTumbler/Pods-BlueToothTumbler.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +70,6 @@
 				DBD8C96339FFEA3C79AB4C48 /* Pods-BlueToothTumbler.debug.xcconfig */,
 				A20293D1F9DCE7CAAB07C61F /* Pods-BlueToothTumbler.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -79,6 +94,9 @@
 		D1BDAEAB22B785A000A8F81A /* BlueToothTumbler */ = {
 			isa = PBXGroup;
 			children = (
+				D1BDAED322B7B42200A8F81A /* GoogleService-Info.plist */,
+				D1BDAEC022B7983400A8F81A /* Controller */,
+				D1BDAEBF22B797F600A8F81A /* View */,
 				D1BDAEAC22B785A000A8F81A /* AppDelegate.swift */,
 				D1BDAEAE22B785A000A8F81A /* ViewController.swift */,
 				D1BDAEB022B785A000A8F81A /* Main.storyboard */,
@@ -87,6 +105,43 @@
 				D1BDAEB822B785A100A8F81A /* Info.plist */,
 			);
 			path = BlueToothTumbler;
+			sourceTree = "<group>";
+		};
+		D1BDAEBF22B797F600A8F81A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDAEC522B7A4C700A8F81A /* Animation */,
+				D1BDAED122B7B28300A8F81A /* BlueToothPeripheralTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D1BDAEC022B7983400A8F81A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDAECD22B7A5C000A8F81A /* UIViewHelper.swift */,
+				D1BDAEC122B7985500A8F81A /* ConnectedBlueToothViewController.swift */,
+				D1BDAECF22B7A9B400A8F81A /* BlueToothSearchingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D1BDAEC522B7A4C700A8F81A /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDAEC622B7A4D200A8F81A /* core */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		D1BDAEC622B7A4D200A8F81A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				D1BDAEC922B7A51D00A8F81A /* AJDotLoadingView.swift */,
+				D1BDAEC722B7A51D00A8F81A /* AJDotLoadingView.xib */,
+				D1BDAEC822B7A51D00A8F81A /* UIDotLoadingIndicator.swift */,
+			);
+			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,7 +204,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1BDAECA22B7A51D00A8F81A /* AJDotLoadingView.xib in Resources */,
 				D1BDAEB722B785A100A8F81A /* LaunchScreen.storyboard in Resources */,
+				D1BDAED422B7B42200A8F81A /* GoogleService-Info.plist in Resources */,
 				D1BDAEB422B785A100A8F81A /* Assets.xcassets in Resources */,
 				D1BDAEB222B785A000A8F81A /* Main.storyboard in Resources */,
 			);
@@ -213,6 +270,12 @@
 			files = (
 				D1BDAEAF22B785A000A8F81A /* ViewController.swift in Sources */,
 				D1BDAEAD22B785A000A8F81A /* AppDelegate.swift in Sources */,
+				D1BDAED022B7A9B400A8F81A /* BlueToothSearchingViewController.swift in Sources */,
+				D1BDAECE22B7A5C000A8F81A /* UIViewHelper.swift in Sources */,
+				D1BDAECC22B7A51D00A8F81A /* AJDotLoadingView.swift in Sources */,
+				D1BDAECB22B7A51D00A8F81A /* UIDotLoadingIndicator.swift in Sources */,
+				D1BDAED222B7B28300A8F81A /* BlueToothPeripheralTableViewCell.swift in Sources */,
+				D1BDAEC222B7985500A8F81A /* ConnectedBlueToothViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P55BH5C78Q;
 				INFOPLIST_FILE = BlueToothTumbler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P55BH5C78Q;
 				INFOPLIST_FILE = BlueToothTumbler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
