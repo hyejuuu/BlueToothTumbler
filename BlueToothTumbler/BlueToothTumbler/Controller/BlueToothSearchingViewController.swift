@@ -12,7 +12,9 @@ import CoreBluetooth
 let cellIdentifier: String = "peripheralCell"
 class BlueToothSearchingViewController: UIViewController {
 
+    var manager : CBCentralManager!
     var peripherals: [(peripheral: CBPeripheral, RSSI: Float)] = []
+    var myBluetoothPeripheral : CBPeripheral!
     
     let searchingTableView: UITableView = {
         let tableView = UITableView()
@@ -23,6 +25,7 @@ class BlueToothSearchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        manager = CBCentralManager(delegate: self, queue: nil)
         setupLayout()
         setupTableView()
     }
@@ -78,4 +81,26 @@ extension BlueToothSearchingViewController: UITableViewDataSource {
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        myBluetoothPeripheral = peripherals[indexPath.row].peripheral//save peripheral
+        print("trying to connect to \(self.myBluetoothPeripheral)")
+        myBluetoothPeripheral.delegate = self
+        manager.stopScan()                          //stop scanning for peripherals
+        //manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
+        guard let name = self.myBluetoothPeripheral.name else { return }
+        let VC: ConnectedBlueToothViewController = ConnectedBlueToothViewController()
+        //VC.peripheral = myBluetoothPeripheral
+        self.present(VC, animated: true, completion: nil)
+        
+        //print("conneted")
+    }
+}
+
+extension BlueToothSearchingViewController: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    }
+}
+
+extension BlueToothSearchingViewController: CBPeripheralDelegate {
 }

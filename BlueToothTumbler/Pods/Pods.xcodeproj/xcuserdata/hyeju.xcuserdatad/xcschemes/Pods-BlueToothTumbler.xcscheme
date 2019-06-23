@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9065B27F6AC22A6A84AD6C09A8B6B5D0"
+               BlueprintIdentifier = "CAB078178F381AEACA793670C2B1B360"
                BuildableName = "Pods_BlueToothTumbler.framework"
                BlueprintName = "Pods-BlueToothTumbler"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9065B27F6AC22A6A84AD6C09A8B6B5D0"
+            BlueprintIdentifier = "CAB078178F381AEACA793670C2B1B360"
             BuildableName = "Pods_BlueToothTumbler.framework"
             BlueprintName = "Pods-BlueToothTumbler"
             ReferencedContainer = "container:Pods.xcodeproj">

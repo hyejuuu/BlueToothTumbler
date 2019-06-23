@@ -8,5 +8,6 @@ target 'BlueToothTumbler' do
   # Pods for BlueToothTumbler
 
 pod 'Firebase/Analytics'
+pod 'Firebase/Database'
 
 end
