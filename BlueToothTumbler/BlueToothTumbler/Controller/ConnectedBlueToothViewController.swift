@@ -91,7 +91,9 @@ class ConnectedBlueToothViewController: UIViewController {
         view.addSubview(emptyButton)
         navigationItem.rightBarButtonItem = doneBarButtonItem
         
-        emptyButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
+        emptyButton.addTarget(self,
+                              action: #selector(buttonClicked(_:)),
+                              for: .touchUpInside)
         
         btImageView.widthAnchor.constraint(
             equalToConstant: 130).isActive = true
@@ -128,40 +130,68 @@ class ConnectedBlueToothViewController: UIViewController {
         emptyButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
-    private func writeValue(value: String) {
+    private func send(text aText : String) {
         
-        if isMyPeripheralConnected { //check if myPeripheral is connected to send data
-//            let text: [UInt8] = [0x]
-////            let byteArray = text.data(using: String.Encoding.macOSRoman)
-//
-//            guard let hex = text.data(using: .utf8) else {
-//                assertionFailure()
-//                return
-//            }
-//            let text = "503120302030203020302036"
-//            var array: [Character] = ["P", "1", " ", "0", " ", "0", " ", "0", " ", "0", " ", "6"]
-//            let data = NSData(bytes: &array, length: 12)
-//            guard let data = "P1 0 0 0 0 6".data(using: .ascii) else {
-//                assertionFailure()
-//                return
-//            }
-//
-            print(myCharacteristic.properties)
-  
-            guard let data = Data(hexString: "5031") else {
-                assertionFailure()
-                return
+        guard self.myCharacteristic != nil else {
+            assertionFailure()
+            return
+        }
+        
+        // Check what kind of Write Type is supported. By default it will try Without Response.
+        // If the RX charactereisrtic have Write property the Write Request type will be used.
+        var type = CBCharacteristicWriteType.withoutResponse
+        //        if (self.uartRXCharacteristic!.properties.rawValue & CBCharacteristicProperties.write.rawValue) > 0 {
+        //            type = CBCharacteristicWriteType.withResponse
+        //        }
+        
+        // In case of Write Without Response the text needs to be splited in up-to 20-bytes packets.
+        // When Write Request (with response) is used, the Long Write may be used.
+        // It will be handled automatically by the iOS, but must be supported on the device side.
+        // If your device does support Long Write, change the flag below to true.
+        let longWriteSupported = false
+        
+        // The following code will split the text to packets
+        let textData = aText.data(using: String.Encoding.utf8)!
+        textData.withUnsafeBytes { (u8Ptr: UnsafePointer<CChar>) in
+            var buffer = UnsafeMutableRawPointer(mutating: UnsafeRawPointer(u8Ptr))
+            var len = textData.count
+            
+            while(len != 0){
+                var part : String
+                if len > 20 && (type == CBCharacteristicWriteType.withoutResponse || longWriteSupported == false) {
+                    // If the text contains national letters they may be 2-byte long.
+                    // It may happen that only 19 (MTU) bytes can be send so that not of them is splited into 2 packets.
+                    var builder = NSMutableString(bytes: buffer, length: 20, encoding: String.Encoding.utf8.rawValue)
+                    if builder != nil {
+                        // A 20-byte string has been created successfully
+                        buffer  = buffer + 20
+                        len     = len - 20
+                    } else {
+                        // We have to create 19-byte string. Let's ignore some stranger UTF-8 characters that have more than 2 bytes...
+                        builder = NSMutableString(bytes: buffer,
+                                                  length: (20 - 1),
+                                                  encoding: String.Encoding.utf8.rawValue)
+                        buffer = buffer + (20 - 1)
+                        len = len - (20 - 1)
+                    }
+                    
+                    part = String(describing: builder!)
+                } else {
+                    let builder = NSMutableString(bytes: buffer,
+                                                  length: len,
+                                                  encoding: String.Encoding.utf8.rawValue)
+                    part = String(describing: builder!)
+                    len = 0
+                }
+                let data = part.data(using: String.Encoding.utf8)!
+                self.myBluetoothPeripheral!.writeValue(data,
+                                                       for: self.myCharacteristic,
+                                                       type: .withoutResponse)
             }
             
-            myBluetoothPeripheral.writeValue(data,
-                                             for: myCharacteristic,
-                                             type: .withResponse)    //실제 write 하는 부분
-            
-            print("dataSend")
-        } else {
-            print("Not connected")
         }
     }
+    
     
     @objc func listCheckButtonClicked(_: UIBarButtonItem) {
         let listVC: BlueToothSearchingViewController = BlueToothSearchingViewController()
@@ -170,8 +200,10 @@ class ConnectedBlueToothViewController: UIViewController {
     }
     
     @objc func buttonClicked(_: UIButton) {
-        writeValue(value: "")
+        send(text: "P1 0 0 0 0 6")
+//        writeValue(value: "")
     }
+    
 }
 
 extension ConnectedBlueToothViewController: CBCentralManagerDelegate {
@@ -213,39 +245,21 @@ extension ConnectedBlueToothViewController: CBCentralManagerDelegate {
         }
         guard let blueToothName = peripheral.name else { return }
         print("name: \(blueToothName)")
-//        print("name: \(UserInformation.userId)")
         
-//        if UserInformation.userId == "sangbum" {
-            if blueToothName == "TUMBLER_2936" {
-                print("sangbum logged in")
-                myBluetoothPeripheral = peripheral     //save peripheral
-                myBluetoothPeripheral.delegate = self
-                
-                manager.stopScan()                          //stop scanning for peripherals
-                manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
-                print("sangbum logged in")
-                
-            } else if blueToothName == "[SABRE]" {
-                
-                myBluetoothPeripheral = peripheral     //save peripheral
-                myBluetoothPeripheral.delegate = self
-                
-                manager.stopScan()                          //stop scanning for peripherals
-                manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
-                
-            }
-//        } else {
-//            if blueToothName == "[SABRE]" {
-//
-//                self.myBluetoothPeripheral = peripheral     //save peripheral
-//                self.myBluetoothPeripheral.delegate = self
-//
-//                manager.stopScan()                          //stop scanning for peripherals
-//                manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
-//
-//            }
-//        }
-        
+        if blueToothName == "TUMBLER_2936" {
+            myBluetoothPeripheral = peripheral     //save peripheral
+            myBluetoothPeripheral.delegate = self
+            
+            manager.stopScan()                          //stop scanning for peripherals
+            manager.connect(myBluetoothPeripheral, options: nil) //connect to my peripheral
+            print("logged in")
+            
+        } else {
+            myBluetoothPeripheral = peripheral     //save peripheral
+            myBluetoothPeripheral.delegate = self
+            
+            manager.stopScan()                          //stop scanning for peripherals
+        }
     }
     
     //블투가 연결되었을 때 실행되는 메서드
@@ -292,8 +306,8 @@ extension ConnectedBlueToothViewController: CBPeripheralDelegate {
 
             for cc in characterArray {
 
-                if(cc.uuid.uuidString == "6E400003-B5A3-F393-E0A9-E50E24DCCA9E") { // 내가 공부하기로는 스트링 전송은 FFE1을 사용해야하는것같음
-
+                if(cc.uuid.uuidString == "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") {
+                    
                     myCharacteristic = cc //saved it to send data in another function.
                     print("char: \(myCharacteristic)")
                     peripheral.setNotifyValue(true, for: cc)
@@ -309,14 +323,12 @@ extension ConnectedBlueToothViewController: CBPeripheralDelegate {
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
         print("called didU")
-        if (characteristic.uuid.uuidString == "6E400003-B5A3-F393-E0A9-E50E24DCCA9E") {
+        if (characteristic.uuid.uuidString == "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") {
 
             let readValue = characteristic.value
 
             let value = (readValue! as NSData).bytes.bindMemory(to: Int.self, capacity: readValue!.count).pointee //used to read an Int value
 
-            // writeValue(value: "5a")
-            //sleep()
             if myBluetoothPeripheral.name == "TUMBLER_2936" {
                 if value == 255 {
                     print("sangbum!")
@@ -326,19 +338,12 @@ extension ConnectedBlueToothViewController: CBPeripheralDelegate {
             } else {
                 if value == 90 {
                     print ("touched master device")
-                    writeValue(value: "")
+//                    writeValue(value: "")
                 }
             }
             print(value)
         }
     }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print(peripheral)
-        print(characteristic)
-        print(error)
-    }
-    
     
 }
 
